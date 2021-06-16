@@ -4,6 +4,7 @@ import "./style.css";
 const WebcamDisplay = () => {
   const videoRef = useRef(null);
   let streamRef = null;
+
   useEffect(() => {
     getVideo();
   }, [videoRef]);
