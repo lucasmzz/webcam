@@ -1,0 +1,17 @@
+.sepia {
+  -webkit-filter: sepia(100%);
+  filter: sepia(100%);
+}
+
+.btn-section {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-section > button {
+  margin: 10px;
+  padding: 10px;
+  font-size: 2rem;
+}
