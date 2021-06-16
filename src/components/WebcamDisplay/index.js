@@ -3,17 +3,18 @@ import "./style.css";
 
 const WebcamDisplay = () => {
   const videoRef = useRef(null);
-
+  let streamRef = null;
   useEffect(() => {
     getVideo();
   }, [videoRef]);
 
   const getVideo = () => {
     navigator.mediaDevices
-      .getUserMedia({ video: { width: 800 } })
+      .getUserMedia({ audio: false, video: { width: 800 } })
       .then((stream) => {
+        streamRef = stream;
         let video = videoRef.current;
-        video.srcObject = stream;
+        video.srcObject = streamRef;
         video.play();
       })
       .catch((err) => {
@@ -21,10 +22,24 @@ const WebcamDisplay = () => {
       });
   };
 
+  const toggleVideo = () => {
+    streamRef.getVideoTracks()[0].enabled === true
+      ? (streamRef.getVideoTracks()[0].enabled = false)
+      : (streamRef.getVideoTracks()[0].enabled = true);
+  };
+
+  const toggleSepia = () => {
+    videoRef.current.classList.toggle("sepia");
+  };
+
   return (
     <div>
       <div>
-        <video ref={videoRef} />
+        <video ref={videoRef} style={{ backgroundColor: "#000" }} />
+      </div>
+      <div className="btn-section">
+        <button onClick={toggleVideo}>Toggle Video</button>
+        <button onClick={toggleSepia}>Toggle Sepia</button>
       </div>
     </div>
   );
